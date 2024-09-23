@@ -10,7 +10,7 @@ body {
   line-height: 1;
   font-weight: 400;
   color: #555;
-  background-color: #eee;
+  background-color: #e5e7eb;
 }
 
 .main-container {
@@ -69,12 +69,205 @@ body {
 }
 
 .input-button {
-  width: 14rem;
-  height: 6rem;
-  padding: 0.5rem 1rem;
-  font-size: 3rem;
+  width: 12rem;
+  height: 5.2rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 2.6rem;
+  color: #1f2937;
+  font-weight: bold;
   border-radius: 1rem;
   border: 1px solid black;
   box-sizing: border-box;
-  background-color: #fff;
+  background-color: #94a3b8;
+}
+
+.hidden {
+  display: none;
+}
+
+.simulation-container {
+  display: flex;
+  flex-direction: column-reverse;
+  background-color: #e5e7eb;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.floor {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  border-bottom: 2px solid #aaa;
+  position: relative;
+  min-width: max-content;
+  padding-right: 20px;
+}
+
+.floor-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.floor-buttons button {
+  width: 8rem;
+  height: 4rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 2px 0;
+  background-color: #fcd34d;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.floor-buttons .up-button {
+  background-color: #ca8a04;
+}
+
+.floor-buttons .down-button {
+  background-color: #f97316;
+}
+
+.floor-buttons .up-button:hover {
+  background-color: #a16207;
+}
+
+.floor-buttons .down-button:hover {
+  background-color: #ea580c;
+}
+
+.floor-number {
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding: 2px 4px;
+  width: 5rem;
+  overflow: hidden;
+}
+
+.lift-shaft {
+  width: 10rem;
+  height: 100%;
+  position: relative;
+}
+
+.lift {
+  width: 7rem;
+  height: 90%;
+  margin-bottom: 0.5rem;
+  background-color: #334155;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: bottom 2s linear;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .lift {
+    width: 50px;
+  }
+}
+
+.lift-door {
+  width: 50%;
+  height: 100%;
+  background-color: #71717a;
+  position: absolute;
+  transition: transform 2.5s;
+  border-radius: 0px;
+  z-index: 2;
+}
+
+.lift-door.left {
+  left: 0;
+  transform-origin: left;
+}
+
+.lift-door.right {
+  right: 0;
+  transform-origin: right;
+}
+
+.lift-door.open.left {
+  transform: scaleX(0);
+}
+
+.lift-door.open.right {
+  transform: scaleX(0);
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  header {
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: 2em;
+  }
+
+  .simulation-container {
+    padding: 15px;
+  }
+
+  .floor {
+    height: 80px;
+  }
+
+  .lift-shaft {
+    width: 60px;
+  }
+
+  .lift {
+    width: 50px;
+    height: 70px;
+  }
+}
+
+.lift-number {
+  display: none;
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: green;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-size: 12px;
+  z-index: 3;
+  transition: background-color 0.3s;
+}
+
+.lift-number.in-use {
+  background-color: #e74c3c;
+}
+
+@media (max-width: 768px) {
+  .lift-number {
+    font-size: 10px;
+    padding: 1px 4px;
+  }
+}
+
+.lift-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #334155;
+  z-index: 1.1;
+  opacity: 0;
+  transition: opacity 0.5s;
 }
