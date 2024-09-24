@@ -28,9 +28,14 @@ body {
 }
 
 .input-container {
-  width: 80%;
-  margin: 4rem auto;
-  padding: 4rem 8rem;
+  width: 100%;
+  margin: 2rem auto;
+  /* background-color: white; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
