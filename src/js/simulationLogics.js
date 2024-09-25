@@ -143,39 +143,40 @@ async function openCloseDoors(lift) {
   lift.removeChild(background);
 }
 
-function isLiftAvailableForCall(state, floor, direction) {
-  return (
-    !state.floorCalls[floor][direction] &&
-    state.activeCallsPerFloor[floor] < 2 &&
-    !state.liftStates.some(
-      (lift) =>
-        lift.status === "moving" &&
-        lift.destination === floor &&
-        lift.direction === direction
-    )
-  );
-}
-
 function callLift(state, floor, direction) {
-  if (isLiftAvailableForCall(state, floor, direction)) {
-    state.floorCalls[floor][direction] = true;
-    state.activeCallsPerFloor[floor]++;
+  const button = document.querySelector(
+    `.floor-buttons[data-floor="${floor}"] .${direction}-button`
+  );
 
-    const button = document.querySelector(
-      `.floor-buttons[data-floor="${floor}"] .${direction}-button`
-    );
+  // Always add the call to pendingCalls
+  if (
+    !state.pendingCalls.some(
+      (call) => call.floor === floor && call.direction === direction
+    )
+  ) {
+    state.pendingCalls.push({ floor, direction });
+
     if (button) {
       button.classList.add("pressed");
       button.disabled = true;
     }
-
-    const nearestLift = findNearestIdleLift(state, floor);
-    if (nearestLift !== -1) {
-      assignLiftToCall(state, nearestLift, floor, direction);
-    } else {
-      state.pendingCalls.push({ floor, direction });
-    }
   }
+
+  processNextCall(state);
+}
+
+function processNextCall(state) {
+  if (state.pendingCalls.length === 0) return;
+
+  const availableLift = findAvailableLift(state);
+  if (availableLift !== -1) {
+    const nextCall = state.pendingCalls.shift();
+    assignLiftToCall(state, availableLift, nextCall.floor, nextCall.direction);
+  }
+}
+
+function findAvailableLift(state) {
+  return state.liftStates.findIndex((lift) => lift.status === "idle");
 }
 
 function assignLiftToCall(state, liftIndex, floor, direction) {
@@ -204,33 +205,26 @@ async function moveLift(state, liftIndex, targetFloor) {
   liftState.currentFloor = targetFloor;
   await openCloseDoors(lift);
 
-  // Reset lift state and update floor calls
+  // Reset lift state
   liftState.status = "idle";
   liftState.destination = null;
-  state.floorCalls[targetFloor][liftState.direction] = false;
-  state.activeCallsPerFloor[targetFloor]--;
   liftState.direction = null;
 
-  // Re-enable buttons
-  const buttons = document.querySelectorAll(
-    `.floor-buttons[data-floor="${targetFloor}"] button`
-  );
-  buttons.forEach((button) => {
-    button.classList.remove("pressed");
-    button.disabled = false;
-  });
+  // Reset buttons for both directions
+  resetButtons(targetFloor, "up");
+  resetButtons(targetFloor, "down");
 
-  checkPendingCalls(state);
+  // Process next call
+  processNextCall(state);
 }
 
-function checkPendingCalls(state) {
-  for (let i = 0; i < state.pendingCalls.length; i++) {
-    const call = state.pendingCalls[i];
-    if (isLiftAvailableForCall(state, call.floor, call.direction)) {
-      state.pendingCalls.splice(i, 1);
-      callLift(state, call.floor, call.direction);
-      break;
-    }
+function resetButtons(floor, direction) {
+  const button = document.querySelector(
+    `.floor-buttons[data-floor="${floor}"] .${direction}-button`
+  );
+  if (button) {
+    button.classList.remove("pressed");
+    button.disabled = false;
   }
 }
 
