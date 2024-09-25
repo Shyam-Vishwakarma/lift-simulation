@@ -30,11 +30,11 @@ body {
 .input-container {
   width: 100%;
   margin: 2rem auto;
-  /* background-color: white; */
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .form {
   display: flex;
   flex-direction: column;
@@ -84,6 +84,64 @@ body {
   border: 1px solid black;
   box-sizing: border-box;
   background-color: #94a3b8;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .main-container {
+    height: 10rem;
+  }
+
+  .heading-primary {
+    font-size: 3.5rem;
+  }
+
+  .error-message {
+    font-size: 1.6rem;
+    width: 90%;
+  }
+
+  .input-box {
+    width: 90%;
+    height: 5rem;
+    font-size: 2rem;
+  }
+
+  .input-button {
+    width: 10rem;
+    height: 4.5rem;
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    height: 8rem;
+  }
+
+  .heading-primary {
+    font-size: 3rem;
+  }
+
+  .error-message {
+    font-size: 1.4rem;
+  }
+
+  .input-label {
+    font-size: 2rem;
+  }
+
+  .input-box {
+    width: 85%;
+    height: 4.5rem;
+    font-size: 1.8rem;
+  }
+
+  .input-button {
+    width: 9rem;
+    height: 4rem;
+    font-size: 2rem;
+  }
 }
 
 .hidden {
