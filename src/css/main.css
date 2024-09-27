@@ -150,7 +150,7 @@ body {
 
 .simulation-container {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   background-color: #e5e7eb;
   padding: 20px;
   border-radius: 10px;
@@ -177,10 +177,10 @@ body {
 
 .floor-buttons button {
   width: 8rem;
-  height: 4rem;
-  font-size: 1.6rem;
+  height: 3.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
-  margin: 2px 0;
+  margin: 2px 4px;
   background-color: #fcd34d;
   color: white;
   border: none;
