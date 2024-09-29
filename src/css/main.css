@@ -187,7 +187,7 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 2px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .floor-buttons .up-button {
@@ -204,6 +204,14 @@ body {
 
 .floor-buttons .down-button:hover {
   background-color: #ea580c;
+}
+
+.floor-buttons button.pressed {
+  background-color: #060446;
+}
+
+.floor-buttons button.pressed:hover {
+  background-color: #060446;
 }
 
 .floor-number {
