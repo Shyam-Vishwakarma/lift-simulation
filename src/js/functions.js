@@ -16,8 +16,6 @@ export const validate = (floors, lifts) => {
 const validateValues = (floors, lifts) => {
   if (floors == "" || lifts == "") {
     return "Enter non-zero positive integers for both floors and lifts";
-  } else if (floors == 1 && lifts > 0) {
-    return "What's the need of lift(s) for a single floor?";
   } else if (floors < 0 || lifts < 0) {
     return "Please enter non-zero positive integer only";
   } else if (!/^\d+$/.test(floors) || !/^\d+$/.test(lifts)) {

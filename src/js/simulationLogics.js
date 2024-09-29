@@ -28,7 +28,7 @@ function renderSimulation(state) {
     floor.innerHTML = `
       <div class="floor-buttons" data-floor="${i}">
         ${
-          i < state.floors
+          i <= state.floors
             ? `<button class="up-button" data-floor="${i}">Up</button>`
             : ""
         }
